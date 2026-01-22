@@ -25,7 +25,7 @@
             <ul class="main-menu-list">
               <li><a href="/index.php">HOME</a></li>
               <li><a href="#">ABOUT</a></li>
-              <li><a href="#">AUTHOR</a></li>
+              <li><a href="/author.php">AUTHOR</a></li>
               <li><a href="/shop.php">BOOKS</a></li>
               <li><a href="#">BLOGS</a></li>
               <li>
