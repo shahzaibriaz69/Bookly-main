@@ -31,7 +31,11 @@ $product = null;
 
 if ($id > 0) {
   
-    $sql = "SELECT * FROM products WHERE product_id = $id";
+    $sql = "SELECT p.*,c.category_name,c.parent_id FROM `products` as p 
+    JOIN category_products as cp on p.product_id = cp.product_id 
+    JOIN categories as c on cp.category_id = c.category_id 
+    where p.product_id=$id and c.parent_id=44";
+    
     $result = mysqli_query($conn, $sql);
     
 
@@ -60,7 +64,8 @@ $main_image = trim($images[0]);
 
         <div class="product-info" style="flex: 1;">
             <h1><?php echo $product['product_name']; ?></h1>
-            <p class="product_id">By: <strong><?php echo $product['product_id']; ?></strong></p>
+            <!-- <p class="product_id"> <strong><?php echo $product['parent_id']; ?></strong></p> -->
+            <p class="product_id"> <strong><?php echo ($product['parent_id'] == 44) ? 'By: ' . $product['category_name'] : 'Category'; ?></strong></p>
             <h2 style="color: #2c3e50;">$<?php echo $product['product_price']; ?></h2>
             
             <div class="description" style="margin: 20px 0;">

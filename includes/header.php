@@ -23,8 +23,9 @@
           </div>
           <div class="nav-item">
             <ul class="main-menu-list">
-              <li><a href="#">HOME</a></li>
+              <li><a href="/index.php">HOME</a></li>
               <li><a href="#">ABOUT</a></li>
+              <li><a href="#">AUTHOR</a></li>
               <li><a href="/shop.php">BOOKS</a></li>
               <li><a href="#">BLOGS</a></li>
               <li>
