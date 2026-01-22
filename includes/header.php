@@ -25,7 +25,7 @@
             <ul class="main-menu-list">
               <li><a href="#">HOME</a></li>
               <li><a href="#">ABOUT</a></li>
-              <li><a href="/shop.php">SHOP</a></li>
+              <li><a href="/shop.php">BOOKS</a></li>
               <li><a href="#">BLOGS</a></li>
               <li>
                 <div class="pages-dropdown">

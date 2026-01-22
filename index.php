@@ -80,7 +80,9 @@ include "functions.php";
     <section class="container" style="height: 70vh">
       <div class="title-section">
         <h2>Best Selling Items</h2>
-        <button>View All</button>
+        <a href="shop.php">
+          <button>View All</button>
+        </a>
       </div>
 
 <div class="slider">
@@ -90,14 +92,14 @@ include "functions.php";
     'order' => 'sale_count desc'
   ]);
 
-  // Line 10 in your screenshot executes the query
+
   if (!empty($products)) {
       foreach($products as $row) { 
           $images = explode(',', $row['product_image']);
         
           $first_image = trim($images[0]);
   ?>
-    <a href="/single_book.php?product_id=<?=$row['product_image']?>">
+    <a href="/single_book.php?product_id=<?=$row['product_id']?>">
       <div class="card">
         <div class="card-img">
           <img src="/images/<?php echo $first_image; ?>" alt="book-cover" />
