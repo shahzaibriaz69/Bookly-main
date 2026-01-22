@@ -1,4 +1,72 @@
-    <div class="topbar-container">
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// 1. DATABASE CONNECTION
+$db_host = "localhost";
+$db_user = "root";
+$db_pass = "";
+$db_name = "pegasus_db"; // Updated to your database name
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$msg = ""; 
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+
+    if (isset($_POST['login_submit'])) {
+        $email = $conn->real_escape_string($_POST['user_email']);
+        $pass  = $_POST['user_password'];
+
+        $sql = "SELECT * FROM users WHERE user_email = '$email'";
+        $result = $conn->query($sql);
+
+        if ($result && $user = $result->fetch_assoc()) {
+       
+            if (password_verify($pass, $user['user_password'])) {
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['user_email'] = $user['user_email'];
+                header("Location: " . $_SERVER['PHP_SELF']); 
+                exit();
+            } else { $msg = "Invalid password."; }
+        } else { $msg = "Email not found."; }
+    }
+
+  
+    if (isset($_POST['register_submit'])) {
+        $email = $conn->real_escape_string($_POST['reg_email']);
+        $pass  = password_hash($_POST['reg_password'], PASSWORD_BCRYPT);
+        $time  = time(); 
+
+        $sql = "INSERT INTO users (user_email, user_password, user_status, user_approved, user_created, group_id) 
+                VALUES ('$email', '$pass', 1, 1, '$time', 2)";
+
+        if ($conn->query($sql)) {
+            $msg = "Success! Please sign in.";
+        } else {
+            $msg = "Error: " . $conn->error;
+        }
+    }
+}
+
+// 3. LOGOUT LOGIC
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+?>
+ 
+ 
+ 
+ <div class="topbar-container">
       <div class="header-content">
         <div class="top-bar">
           <div class="top-item">
@@ -27,7 +95,7 @@
               <li><a href="#">ABOUT</a></li>
               <li><a href="/author.php">AUTHOR</a></li>
               <li><a href="/shop.php">BOOKS</a></li>
-              <li><a href="#">BLOGS</a></li>
+              <li><a href="/blog.php">BLOGS</a></li>
               <li>
                 <div class="pages-dropdown">
                   <a href="#" id="pages-text"
@@ -62,65 +130,40 @@
               <li>
                 <a href="#" id="modal"><i class="fa-solid fa-user"></i></a>
                 <div class="modal-overlay">
-                  <div class="modal-container">
-                    <div class="tab-btns">
-                      <button id="login-tab-btn" class="active">Sign In</button>
-                      <button id="register-tab-btn">Register</button>
-                    </div>
+  <div class="modal-container">
+    <?php if (isset($_SESSION['user_id'])): ?>
+      <div style="text-align: center; padding: 20px;">
+          <h3>Welcome!</h3>
+          <p>Logged in as: <strong><?php echo $_SESSION['user_email']; ?></strong></p>
+          <a href="?logout=1" class="login-btn" style="text-decoration:none; display:inline-block; margin-top:10px;">Logout</a>
+      </div>
+    <?php else: ?>
+      <div class="tab-btns">
+        <button id="login-tab-btn" class="active">Sign In</button>
+        <button id="register-tab-btn">Register</button>
+      </div>
+      <hr />
+      
+      <?php if($msg) echo "<p style='color: #d9534f; text-align: center; font-weight: bold;'>$msg</p>"; ?>
 
-                    <hr />
+      <form class="login-form" id="login-form" method="POST">
+        <label>Email Address*</label>
+        <input type="text" name="user_email" placeholder="Your Email" required />
+        <label>Password*</label>
+        <input type="password" name="user_password" placeholder="Your Password" required />
+        <button type="submit" name="login_submit" class="login-btn">Login</button>
+      </form>
 
-                    <!-- Sign In form -->
-                    <form class="login-form" id="login-form">
-                      <label for="username">Username or Email Address*</label>
-                      <input
-                        type="text"
-                        id="Username"
-                        placeholder="Your Username"
-                      />
-
-                      <label for="password">Password*</label>
-                      <input
-                        type="password"
-                        id="Password"
-                        placeholder="Your Password"
-                      />
-
-                      <div class="login-options">
-                        <label><input type="checkbox" /> Remember me</label>
-                        <a href="#">Forgot Password</a>
-                      </div>
-                      <button type="submit" class="login-btn">Login</button>
-                    </form>
-
-                    <!-- Register form -->
-                    <form
-                      class="login-form"
-                      id="register-form"
-                      style="display: none"
-                    >
-                      <label for="email">Your Email Address*</label>
-                      <input
-                        type="text"
-                        id="email"
-                        placeholder="Your Email Address"
-                      />
-
-                      <label for="password">Password*</label>
-                      <input
-                        type="password"
-                        id="Password"
-                        placeholder="Your Password"
-                      />
-
-                      <div class="login-options">
-                        <label><input type="checkbox" /> I agree to the</label>
-                        <a href="#">Privacy Policy</a>
-                      </div>
-                      <button type="submit" class="login-btn">Register</button>
-                    </form>
-                  </div>
-                </div>
+      <form class="login-form" id="register-form" method="POST" style="display: none">
+        <label>Email Address*</label>
+        <input type="email" name="reg_email" placeholder="Your Email Address" required />
+        <label>Password*</label>
+        <input type="password" name="reg_password" placeholder="Create Password" required />
+        <button type="submit" name="register_submit" class="login-btn">Register</button>
+      </form>
+    <?php endif; ?>
+  </div>
+</div>
               </li>
               <li>
                 <div class="wishlist-dropdwon">
