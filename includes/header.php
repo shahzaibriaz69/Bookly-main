@@ -1,19 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
-// 1. DATABASE CONNECTION
-$db_host = "localhost";
-$db_user = "root";
-$db_pass = "";
-$db_name = "pegasus_db"; // Updated to your database name
-
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 $msg = ""; 
 
@@ -118,7 +104,7 @@ if (isset($_GET['logout'])) {
 
               <li><a href="#">CONTACT</a></li>
               <li>
-                <a href="#" style="text-decoration: underline">GET PRO</a>
+                <a href="/profile.php" style="text-decoration: underline">Profile</a>
               </li>
             </ul>
           </div>

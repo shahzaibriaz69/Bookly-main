@@ -1,8 +1,14 @@
 <?php
+// 1. DATABASE CONNECTION
+$db_host = "localhost";
+$db_user = "root";
+$db_pass = "";
+$db_name = "pegasus_db"; // Updated to your database name
 
-$conn = mysqli_connect("localhost", "root", "", "pegasus_db");
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
 ?>
