@@ -36,7 +36,7 @@ include "functions.php";
           <button>Shop Collection</button>
         </div>
         <div class="img-section">
-          <img src="images/banner-image2.png" alt="" />
+          <img src="https://picsum.photos/1920/500" alt="" />
         </div>
       </div>
     </section>
