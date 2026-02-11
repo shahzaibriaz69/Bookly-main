@@ -24,12 +24,25 @@ include "functions.php";
   include "includes/header.php"
     ?>
 
+<<<<<<< HEAD
   <section class="hero-section">
     <div class="container hero-section-matrial">
       <div class="hero-section-content">
         <h2>The Fine Print Book Collection</h2>
         <p>Best Offer Save 30%. Grab it now!</p>
         <button>Shop Collection</button>
+=======
+    <section class="hero-section">
+      <div class="container hero-section-matrial">
+        <div class="hero-section-content">
+          <h2>The Fine Print Book Collection</h2>
+          <p>Best Offer Save 30%. Grab it now!</p>
+          <button>Shop Collection</button>
+        </div>
+        <div class="img-section">
+          <img src="https://picsum.photos/1920/500" alt="" />
+        </div>
+>>>>>>> a83c850c72c256730f145b5a4056003dd23c659a
       </div>
       <div class="img-section">
         <img src="images/banner-image2.png" alt="" />
