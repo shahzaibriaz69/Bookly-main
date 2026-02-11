@@ -22,8 +22,8 @@
 <div class="profile-container">
   <aside class="profile-sidebar">
     <div class="profile-header">
-      <img src="https://via.placeholder.com/100" alt="Profile" class="avatar">
-      <h3 class="username">@paolo</h3>
+      <img src="images/shahzaib" alt="Profile" class="avatar">
+      <h3 class="username">@Shahzaib</h3>
     </div>
     <ul class="profile-nav">
       <li><span class="icon">👤</span> Edit Account</li>
@@ -52,7 +52,7 @@
       <tbody>
         <tr>
           <td class="order-id">#442</td>
-          <td>September 10, 2020</td>
+          <td>September 29, 2025</td>
           <td>Completed</td>
           <td>$399.99 for 1 item</td>
           <td><button class="view-btn">View</button></td>
